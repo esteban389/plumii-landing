@@ -70,12 +70,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const valueItems = document.querySelectorAll('.value-item');
     const valueContents = document.querySelectorAll('.value-item__content');
     
-    // Track if any item is being hovered
+    // Track if any item is being hovered or clicked
     let isAnyItemHovered = false;
+    let isAnyItemClicked = false;
+    let clickedItem = null;
     
     // Function to pause/resume circle animation
     function toggleCircleAnimation() {
-        if (isAnyItemHovered) {
+        if (isAnyItemHovered || isAnyItemClicked) {
             valuesCircle.style.animationPlayState = 'paused';
             valueContents.forEach(content => {
                 content.style.animationPlayState = 'paused';
@@ -88,16 +90,78 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    // Function to expand item and show description
+    function expandItem(item) {
+        // Reset all items
+        valueItems.forEach(valueItem => {
+            valueItem.classList.remove('value-item--expanded');
+            valueItem.classList.remove('value-item--dimmed');
+        });
+        
+        // Expand clicked item
+        item.classList.add('value-item--expanded');
+        
+        // Dim all other items
+        valueItems.forEach(valueItem => {
+            if (valueItem !== item) {
+                valueItem.classList.add('value-item--dimmed');
+            }
+        });
+        
+        // Pause animation
+        isAnyItemClicked = true;
+        clickedItem = item;
+        toggleCircleAnimation();
+    }
+    
+    // Function to reset to normal state
+    function resetToNormal() {
+        if (clickedItem) {
+            clickedItem.classList.remove('value-item--expanded');
+            clickedItem = null;
+        }
+        
+        // Remove dimmed class from all items
+        valueItems.forEach(valueItem => {
+            valueItem.classList.remove('value-item--dimmed');
+        });
+        
+        isAnyItemClicked = false;
+        toggleCircleAnimation();
+    }
+    
     // Add hover listeners to each value item
     valueItems.forEach(item => {
         item.addEventListener('mouseenter', function() {
-            isAnyItemHovered = true;
-            toggleCircleAnimation();
+            if (!isAnyItemClicked) {
+                isAnyItemHovered = true;
+                toggleCircleAnimation();
+            }
         });
         
         item.addEventListener('mouseleave', function() {
-            isAnyItemHovered = false;
-            toggleCircleAnimation();
+            if (!isAnyItemClicked) {
+                isAnyItemHovered = false;
+                toggleCircleAnimation();
+            }
         });
+        
+        // Add click listener to each value item
+        item.addEventListener('click', function() {
+            if (isAnyItemClicked && clickedItem === item) {
+                // If clicking the same item again, reset to normal
+                resetToNormal();
+            } else {
+                // Expand clicked item
+                expandItem(item);
+            }
+        });
+    });
+    
+    // Add click listener to document to reset when clicking outside
+    document.addEventListener('click', function(e) {
+        if (isAnyItemClicked && !e.target.closest('.value-item')) {
+            resetToNormal();
+        }
     });
 });

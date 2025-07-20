@@ -1115,6 +1115,10 @@ body {
     transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-320px) scale(1.05);
 }
 
+.value-item--expanded:hover {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-320px) scale(1.15);
+}
+
 .values__circle:hover .value-item__content {
     animation-play-state: paused;
 }
@@ -1188,7 +1192,57 @@ body {
     line-height: 1.6;
     color: var(--dark-blue-light);
     margin: 0;
-    display: none;
+    opacity: 0;
+    filter: blur(5px);
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.value-item--expanded {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-300px) scale(1.1);
+    z-index: 10;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.value-item--expanded .value-item__content {
+    box-shadow: 0 20px 60px var(--primary-transparent-25);
+    border: 2px solid var(--accent-color);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.value-item--expanded .value-item__description {
+    opacity: 1;
+    filter: blur(0);
+    max-height: 200px;
+    margin-top: 1rem;
+}
+
+/* Styles for non-expanded items when one is expanded */
+.value-item--dimmed {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-300px) scale(0.8);
+    opacity: 0.4;
+    filter: grayscale(0.8) blur(1px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.value-item--dimmed .value-item__content {
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 5px 20px var(--primary-transparent-10);
+    border: 1px solid var(--primary-transparent-20);
+}
+
+.value-item--dimmed .value-item__title {
+    color: var(--dark-blue-light);
+}
+
+.value-item--dimmed .value-item__icon {
+    opacity: 0.6;
+}
+
+.value-item--dimmed .value-item__indicator {
+    opacity: 0.3;
+    animation: none;
 }
 
 @keyframes values-float {
