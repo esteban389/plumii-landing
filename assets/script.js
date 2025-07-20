@@ -127,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         isAnyItemClicked = false;
+        isAnyItemHovered = false; // Reset hover state as well
         toggleCircleAnimation();
     }
     
@@ -164,4 +165,23 @@ document.addEventListener('DOMContentLoaded', function() {
             resetToNormal();
         }
     });
+    
+    // Intersection Observer to reset when container is not visible
+    const valuesSection = document.querySelector('.values');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // If less than 30% of the section is visible, reset the expanded item
+            if (entry.intersectionRatio < 0.3 && isAnyItemClicked) {
+                resetToNormal();
+            }
+        });
+    }, {
+        threshold: 0.3,
+        rootMargin: '0px'
+    });
+    
+    // Start observing the values section
+    if (valuesSection) {
+        observer.observe(valuesSection);
+    }
 });
