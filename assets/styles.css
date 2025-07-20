@@ -1088,6 +1088,11 @@ body {
     width: 800px;
     height: 800px;
     margin: 0 auto;
+    animation: circle-spin 30s linear infinite;
+}
+
+.values__circle:hover {
+    animation-play-state: paused;
 }
 
 .value-item {
@@ -1103,10 +1108,15 @@ body {
 .value-item__content {
     position: relative;
     transform: rotate(calc(-1 * var(--angle)));
+    animation: counter-rotate 30s linear infinite;
 }
 
 .value-item:hover {
     transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-320px) scale(1.05);
+}
+
+.values__circle:hover .value-item__content {
+    animation-play-state: paused;
 }
 
 .value-item__indicator {
@@ -1213,6 +1223,24 @@ body {
     }
 }
 
+@keyframes circle-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes counter-rotate {
+    from {
+        transform: rotate(calc(-1 * var(--angle))) rotate(0deg);
+    }
+    to {
+        transform: rotate(calc(-1 * var(--angle))) rotate(-360deg);
+    }
+}
+
 /* ===== VALUES RESPONSIVE ===== */
 @media (max-width: 1024px) {
     .values__circle {
@@ -1246,6 +1274,7 @@ body {
         width: 100%;
         height: auto;
         position: static;
+        animation: none;
     }
     
     .value-item {
@@ -1267,6 +1296,7 @@ body {
     .value-item__content {
         padding: 1.5rem;
         transform: none;
+        animation: none;
     }
     
     .value-item__icon {
@@ -1297,6 +1327,7 @@ body {
     .values__circle {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+        animation: none;
     }
     
     .value-item {
@@ -1311,6 +1342,7 @@ body {
     
     .value-item__content {
         padding: 1rem;
+        animation: none;
     }
     
     .value-item__icon {
