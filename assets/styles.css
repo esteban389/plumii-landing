@@ -1100,6 +1100,11 @@ body {
     transition: all 0.4s ease;
 }
 
+.value-item__content {
+    position: relative;
+    transform: rotate(calc(-1 * var(--angle)));
+}
+
 .value-item:hover {
     transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-320px) scale(1.05);
 }
@@ -1109,8 +1114,10 @@ body {
     height: 20px;
     background: var(--accent-color);
     border-radius: 50%;
-    margin: 0 auto 1.5rem;
-    position: relative;
+    position: absolute;
+    top: -28px;
+    left: 50%;
+    transform: translateX(-50%);
     box-shadow: 0 4px 15px rgba(91, 200, 242, 0.4);
     animation: indicator-pulse 2s ease-in-out infinite;
 }
@@ -1135,12 +1142,11 @@ body {
 
 .value-item__content {
     background: var(--white);
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 20px;
     box-shadow: 0 10px 40px var(--primary-transparent-15);
     border: 1px solid var(--primary-transparent-10);
     position: relative;
-    overflow: hidden;
 }
 
 .value-item__content::before {
@@ -1151,6 +1157,12 @@ body {
     right: 0;
     height: 4px;
     background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+}
+
+.value-item__icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
 }
 
 .value-item__title {
@@ -1166,6 +1178,7 @@ body {
     line-height: 1.6;
     color: var(--dark-blue-light);
     margin: 0;
+    display: none;
 }
 
 @keyframes values-float {
@@ -1227,21 +1240,38 @@ body {
     }
     
     .values__circle {
-        width: 400px;
-        height: 400px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        width: 100%;
+        height: auto;
+        position: static;
     }
     
     .value-item {
-        transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-150px);
-        width: 200px;
+        position: static;
+        transform: none;
+        width: 100%;
+        text-align: center;
     }
     
     .value-item:hover {
-        transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-160px) scale(1.05);
+        transform: translateY(-5px) scale(1.02);
+    }
+    
+    .value-item__indicator {
+        transform: none;
+        margin-bottom: 1rem;
     }
     
     .value-item__content {
         padding: 1.5rem;
+        transform: none;
+    }
+    
+    .value-item__icon {
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
     }
     
     .value-item__title {
@@ -1265,21 +1295,27 @@ body {
     }
     
     .values__circle {
-        width: 300px;
-        height: 300px;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
     
     .value-item {
-        transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-110px);
-        width: 150px;
+        position: static;
+        transform: none;
+        width: 100%;
     }
     
     .value-item:hover {
-        transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-120px) scale(1.05);
+        transform: translateY(-3px) scale(1.01);
     }
     
     .value-item__content {
         padding: 1rem;
+    }
+    
+    .value-item__icon {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
     }
     
     .value-item__title {
