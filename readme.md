@@ -16,6 +16,12 @@ Un botón "explorar plumii"
 
 # About us
 
+Título: ¿Quiénes Somos?
+
+Frase: En plumii creemos que la educación del futuro comienza hoy.
+
+Párrafo: Somos una plataforma educativa integral creada para transformar el ecosistema escolar, conectando a toda la comunidad educativa desde un entorno seguro, inteligente y humano. Nuestra propuesta no es solo tecnológica: es pedagógica, emocional y profundamente comprometida con el bienestar de estudiantes, docentes y familias.
+
 # What we do
 
 # Special block
