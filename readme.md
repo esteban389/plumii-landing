@@ -49,6 +49,21 @@ optimizar procesos y generar datos que permiten una toma de decisiones más ráp
 
 # Our values
 
+**Innovación educativa**
+Diseñamos soluciones que rompen los esquemas tradicionales para construir nuevas formas de enseñar, aprender y convivir.
+
+**Seguridad y bienestar**
+Cuidamos lo más valioso: nuestros niños, jóvenes y docentes. La privacidad, salud y protección son prioridad en cada funcionalidad.
+
+**Conectividad humana**
+Fomentamos relaciones sanas, comunicativas y respetuosas entre todos los actores del ecosistema escolar.
+
+**Compromiso con el aprendizaje**
+Creemos que cada estudiante tiene un potencial único. Nuestra tecnología ayuda a identificarlo, impulsarlo y acompañarlo.
+
+**Transformación real**
+No nos conformamos con digitalizar. Queremos revolucionar el presente y el futuro de la educación en Latinoamérica.
+
 # Features Plus
 
 # Community profiles
