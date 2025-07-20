@@ -379,3 +379,175 @@ body {
     
 
 }
+
+/* ===== ABOUT US SECTION ===== */
+.about {
+    padding: 8rem 0;
+    background: linear-gradient(180deg, var(--white) 0%, var(--primary-transparent-5) 100%);
+    position: relative;
+}
+
+.about::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-transparent-15), transparent);
+}
+
+.about__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 6rem;
+}
+
+.about__image-wrapper {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.about__badge {
+    position: absolute;
+    top: -20px;
+    right: -30px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    box-shadow: 0 8px 25px var(--primary-transparent-30);
+    z-index: 10;
+    transform: rotate(5deg);
+    animation: badge-float 3s ease-in-out infinite;
+}
+
+.about__badge-text {
+    color: var(--white);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.about__img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 25px;
+    box-shadow: 0 20px 60px var(--primary-transparent-15);
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.about__img:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 30px 80px var(--primary-transparent-25);
+}
+
+.about__content {
+    flex: 1;
+    max-width: 500px;
+}
+
+.about__title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--dark-blue);
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.about__title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+    border-radius: 2px;
+}
+
+.about__tagline {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+}
+
+.about__description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--dark-blue-light);
+    margin-bottom: 0;
+}
+
+@keyframes badge-float {
+    0%, 100% {
+        transform: rotate(5deg) translateY(0);
+    }
+    50% {
+        transform: rotate(5deg) translateY(-5px);
+    }
+}
+
+/* ===== ABOUT US RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .about {
+        padding: 4rem 0;
+    }
+    
+    .about__container {
+        flex-direction: column-reverse;
+        gap: 3rem;
+        text-align: center;
+    }
+    
+    .about__title {
+        font-size: 2.5rem;
+    }
+    
+    .about__title::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .about__tagline {
+        font-size: 1.2rem;
+    }
+    
+    .about__description {
+        font-size: 1rem;
+    }
+    
+    .about__badge {
+        right: -20px;
+        top: -15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about__title {
+        font-size: 2rem;
+    }
+    
+    .about__tagline {
+        font-size: 1.1rem;
+    }
+    
+    .about__badge {
+        right: -10px;
+        top: -10px;
+        padding: 0.5rem 1rem;
+    }
+    
+    .about__badge-text {
+        font-size: 0.75rem;
+    }
+}
