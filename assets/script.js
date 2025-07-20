@@ -63,3 +63,41 @@ document.addEventListener('DOMContentLoaded', function() {
     // Start the animation loop
     updateSpheres();
 });
+
+// Values circle animation control
+document.addEventListener('DOMContentLoaded', function() {
+    const valuesCircle = document.querySelector('.values__circle');
+    const valueItems = document.querySelectorAll('.value-item');
+    const valueContents = document.querySelectorAll('.value-item__content');
+    
+    // Track if any item is being hovered
+    let isAnyItemHovered = false;
+    
+    // Function to pause/resume circle animation
+    function toggleCircleAnimation() {
+        if (isAnyItemHovered) {
+            valuesCircle.style.animationPlayState = 'paused';
+            valueContents.forEach(content => {
+                content.style.animationPlayState = 'paused';
+            });
+        } else {
+            valuesCircle.style.animationPlayState = 'running';
+            valueContents.forEach(content => {
+                content.style.animationPlayState = 'running';
+            });
+        }
+    }
+    
+    // Add hover listeners to each value item
+    valueItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            isAnyItemHovered = true;
+            toggleCircleAnimation();
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            isAnyItemHovered = false;
+            toggleCircleAnimation();
+        });
+    });
+});
