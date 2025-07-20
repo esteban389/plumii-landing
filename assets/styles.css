@@ -601,6 +601,21 @@ body {
     animation-delay: 4s;
 }
 
+.service-card__mouse-sphere {
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, var(--primary-transparent-25) 0%, var(--primary-transparent-15) 30%, var(--primary-transparent-5) 70%, transparent 100%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    filter: blur(20px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: multiply;
+}
+
 .services__container {
     max-width: 1200px;
     margin: 0 auto;
