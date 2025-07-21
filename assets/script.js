@@ -276,3 +276,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial check
     toggleScrollButton();
 });
+
+// ===== HERO CTA FUNCTIONALITY =====
+document.addEventListener('DOMContentLoaded', function() {
+    const heroCTA = document.getElementById('heroCTA');
+    const aboutSection = document.querySelector('.about');
+    
+    if (!heroCTA || !aboutSection) return;
+    
+    // Smooth scroll to about section
+    function scrollToAbout() {
+        aboutSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+    
+    // Event listener
+    heroCTA.addEventListener('click', scrollToAbout);
+});
