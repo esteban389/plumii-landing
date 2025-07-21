@@ -399,4 +399,121 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Event listener
     whatsappButton.addEventListener('click', openWhatsApp);
+    
+    // ===== NAVIGATION CONTACT BUTTON =====
+    const navContactBtn = document.getElementById('navContactBtn');
+    
+    if (navContactBtn) {
+        navContactBtn.addEventListener('click', openWhatsApp);
+    }
+    
+    // ===== SMOOTH SCROLL NAVIGATION =====
+    const navLinks = document.querySelectorAll('.nav__link');
+    
+    // Función para hacer scroll suave a una sección
+    function smoothScrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            const headerHeight = document.querySelector('.header').offsetHeight;
+            const sectionTop = section.offsetTop - headerHeight - 20;
+            
+            window.scrollTo({
+                top: sectionTop,
+                behavior: 'smooth'
+            });
+        }
+    }
+    
+    // Event listeners para enlaces de navegación
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const sectionId = this.getAttribute('data-section');
+            smoothScrollToSection(sectionId);
+        });
+    });
+    
+    // ===== FLOATING NAVIGATION MENU =====
+    const floatingNav = document.getElementById('floatingNav');
+    const floatingNavToggle = document.getElementById('floatingNavToggle');
+    const floatingNavMenu = document.querySelector('.floating-nav__menu');
+    const floatingNavItems = document.querySelectorAll('.floating-nav__item');
+    
+    if (floatingNav && floatingNavToggle && floatingNavMenu) {
+        // Toggle del menú flotante
+        floatingNavToggle.addEventListener('click', function() {
+            floatingNavMenu.classList.toggle('show');
+            
+            // Rotar el ícono del toggle
+            const svg = this.querySelector('svg');
+            if (floatingNavMenu.classList.contains('show')) {
+                svg.style.transform = 'rotate(45deg)';
+            } else {
+                svg.style.transform = 'rotate(0deg)';
+            }
+        });
+        
+        // Event listeners para elementos del menú flotante
+        floatingNavItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                smoothScrollToSection(sectionId);
+                
+                // Cerrar menú después de hacer clic
+                setTimeout(() => {
+                    floatingNavMenu.classList.remove('show');
+                    const svg = floatingNavToggle.querySelector('svg');
+                    svg.style.transform = 'rotate(0deg)';
+                }, 300);
+            });
+        });
+        
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            if (!floatingNav.contains(e.target)) {
+                floatingNavMenu.classList.remove('show');
+                const svg = floatingNavToggle.querySelector('svg');
+                svg.style.transform = 'rotate(0deg)';
+            }
+        });
+        
+        // Mostrar menú flotante después de scroll
+        let isFloatingNavVisible = false;
+        
+        function toggleFloatingNav() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const heroHeight = document.querySelector('.hero').offsetHeight;
+            
+            if (scrollTop > heroHeight * 0.5 && !isFloatingNavVisible) {
+                floatingNav.style.opacity = '1';
+                floatingNav.style.visibility = 'visible';
+                floatingNav.style.transform = 'translateY(-50%) scale(1)';
+                isFloatingNavVisible = true;
+            } else if (scrollTop <= heroHeight * 0.5 && isFloatingNavVisible) {
+                floatingNav.style.opacity = '0';
+                floatingNav.style.visibility = 'hidden';
+                floatingNav.style.transform = 'translateY(-50%) scale(0.8)';
+                isFloatingNavVisible = false;
+                
+                // Cerrar menú si está abierto
+                if (floatingNavMenu.classList.contains('show')) {
+                    floatingNavMenu.classList.remove('show');
+                    const svg = floatingNavToggle.querySelector('svg');
+                    svg.style.transform = 'rotate(0deg)';
+                }
+            }
+        }
+        
+        // Estado inicial del menú flotante
+        floatingNav.style.opacity = '0';
+        floatingNav.style.visibility = 'hidden';
+        floatingNav.style.transform = 'translateY(-50%) scale(0.8)';
+        floatingNav.style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        
+        // Event listener para scroll
+        window.addEventListener('scroll', toggleFloatingNav);
+        
+        // Verificación inicial
+        toggleFloatingNav();
+    }
 });
