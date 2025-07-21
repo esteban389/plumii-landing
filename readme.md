@@ -227,6 +227,8 @@ PLUMII ha sido diseñada pensando en todos los actores que construyen día a dí
 # Security and benefits
 
 # Schools using plumii
+Título + badge 
+Listado de colegios con imágemes y nombre del colegio
 
 # Special Block
 

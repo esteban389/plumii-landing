@@ -89,6 +89,12 @@ class NavigationManager {
         if (svg) {
             svg.style.transform = 'rotate(90deg)';
         }
+        // Agregar evento para cerrar el menu si se hace click fuera del menu
+        document.addEventListener('click', (e) => {
+            if (!this.floatingNavMenu.contains(e.target) && !this.floatingNavToggle.contains(e.target)) {
+                this.closeFloatingMenu();
+            }
+        });
     }
 
     /**

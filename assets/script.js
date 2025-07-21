@@ -218,6 +218,115 @@ if (window.PlumiiConfig.debug) {
     });
 }
 
+// === Institution Carousel (único bloque, centrado real y funcional) ===
+document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.getElementById('institutionCarousel');
+    if (!carousel) return;
+    const track = document.getElementById('institutionCarouselTrack');
+    const slides = Array.from(track.children);
+    const prevBtn = document.getElementById('institutionCarouselPrev');
+    const nextBtn = document.getElementById('institutionCarouselNext');
+    const dots = Array.from(document.querySelectorAll('#institutionCarouselDots .institution-carousel__dot'));
+    let current = 0;
+
+    let autoplayTimer = null;
+
+    function clearAutoplay() {
+        if (autoplayTimer) {
+            clearTimeout(autoplayTimer);
+            autoplayTimer = null;
+        }
+    }
+
+    function startAutoplay() {
+        clearAutoplay();
+        autoplayTimer = setTimeout(() => {
+            goTo(current + 1);
+        }, 2000);
+    }
+
+    function getCardWidth() {
+        return slides[0].offsetWidth;
+    }
+    function getGap() {
+        const style = window.getComputedStyle(track);
+        return parseFloat(style.gap) || 0;
+    }
+    function goTo(index) {
+        if (index < 0) current = slides.length - 1;
+        else if (index >= slides.length) current = 0;
+        else current = index;
+        updateCarousel();
+    }
+    function updateCarousel() {
+        const cardWidth = getCardWidth();
+        const gap = getGap();
+        const containerWidth = carousel.offsetWidth;
+        const sidePad = (containerWidth - cardWidth) / 2;
+        track.style.paddingLeft = sidePad + 'px';
+        track.style.paddingRight = sidePad + 'px';
+        const offset = (cardWidth + gap) * current;
+        track.style.transform = `translateX(-${offset}px)`;
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active', 'prev', 'next');
+        });
+        slides[current].classList.add('active');
+        const prevIdx = (current - 1 + slides.length) % slides.length;
+        const nextIdx = (current + 1) % slides.length;
+        slides[prevIdx].classList.add('prev');
+        slides[nextIdx].classList.add('next');
+        if (dots) {
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === current);
+                dot.setAttribute('aria-current', i === current ? 'true' : 'false');
+            });
+        }
+        startAutoplay();
+    }
+    // En cada interacción, reinicia el autoplay
+    slides.forEach((slide, i) => {
+        slide.onclick = null;
+        slide.addEventListener('click', () => {
+            if (i !== current) goTo(i);
+            else startAutoplay();
+        });
+    });
+    dots.forEach((dot, i) => {
+        dot.onclick = null;
+        dot.addEventListener('click', (e) => {
+            e.stopPropagation();
+            goTo(i);
+            startAutoplay();
+        });
+    });
+    prevBtn.addEventListener('click', () => {
+        goTo(current - 1);
+        startAutoplay();
+    });
+    nextBtn.addEventListener('click', () => {
+        goTo(current + 1);
+        startAutoplay();
+    });
+    window.addEventListener('resize', () => {
+        updateCarousel();
+        startAutoplay();
+    });
+    // Swipe support for mobile
+    let startX = null;
+    track.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+    });
+    track.addEventListener('touchend', (e) => {
+        if (startX === null) return;
+        const endX = e.changedTouches[0].clientX;
+        if (endX - startX > 40) goTo(current - 1);
+        else if (startX - endX > 40) goTo(current + 1);
+        startX = null;
+        startAutoplay();
+    });
+    setTimeout(updateCarousel, 50);
+});
+
 // Inicializar cuando el DOM esté listo
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initializePlumii);
