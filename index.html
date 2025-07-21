@@ -33,6 +33,8 @@
     <!-- Styles -->
     <link rel="stylesheet" href="./assets/styles.css">
 
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <!-- Scripts -->
     <script type="module" src="./assets/script.js"></script>
 </head>
@@ -62,7 +64,18 @@
         </div>
     </nav>
 
-    <main>
+        <!-- Floating Navigation Menu -->
+        <div class="floating-nav" id="floatingNav">
+            <div class="floating-nav__toggle" id="floatingNavToggle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </div>
+        </div>
+    <main id="main">
         <!-- Hero Section -->
         <section class="hero" id="hero">
             <div class="hero__container">
@@ -628,48 +641,6 @@
             <img src="./assets/images/logo.webp" alt="Plumii" class="floating-logo__img">
         </div>
 
-        <!-- Floating Navigation Menu -->
-        <div class="floating-nav" id="floatingNav">
-            <div class="floating-nav__toggle" id="floatingNavToggle">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-            </div>
-            <div class="floating-nav__menu">
-                <button class="floating-nav__item" data-section="hero">
-                    <span class="floating-nav__icon">🏠</span>
-                    <span class="floating-nav__text">Inicio</span>
-                </button>
-                <button class="floating-nav__item" data-section="about">
-                    <span class="floating-nav__icon">👥</span>
-                    <span class="floating-nav__text">Quiénes Somos</span>
-                </button>
-                <button class="floating-nav__item" data-section="services">
-                    <span class="floating-nav__icon">🎯</span>
-                    <span class="floating-nav__text">Nuestro Enfoque</span>
-                </button>
-                <button class="floating-nav__item" data-section="values">
-                    <span class="floating-nav__icon">💎</span>
-                    <span class="floating-nav__text">Valores</span>
-                </button>
-                <button class="floating-nav__item" data-section="features">
-                    <span class="floating-nav__icon">⚡</span>
-                    <span class="floating-nav__text">Funcionalidades</span>
-                </button>
-                <button class="floating-nav__item" data-section="community">
-                    <span class="floating-nav__icon">👨‍👩‍👧‍👦</span>
-                    <span class="floating-nav__text">Comunidad</span>
-                </button>
-                <div class="floating-nav__divider"></div>
-                <button class="floating-nav__item floating-nav__item--contact" id="floatingNavContact">
-                    <span class="floating-nav__icon">📱</span>
-                    <span class="floating-nav__text">Contacto</span>
-                </button>
-            </div>
-        </div>
 
         <!-- Scroll to Top Button -->
         <button class="scroll-to-top" id="scrollToTop" aria-label="Volver arriba">
