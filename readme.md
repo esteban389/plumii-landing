@@ -233,3 +233,7 @@ PLUMII ha sido diseñada pensando en todos los actores que construyen día a dí
 # CTA
 
 # Footer
+Imagen de fondo
+Logo
+Mensaje
+Mensaje de copyright

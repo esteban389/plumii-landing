@@ -239,3 +239,40 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// ===== SCROLL TO TOP FUNCTIONALITY =====
+document.addEventListener('DOMContentLoaded', function() {
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    const heroSection = document.querySelector('.hero');
+    
+    if (!scrollToTopBtn || !heroSection) return;
+    
+    // Get hero section height to determine when to show button
+    const heroHeight = heroSection.offsetHeight;
+    
+    // Show/hide button based on scroll position
+    function toggleScrollButton() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > heroHeight) {
+            scrollToTopBtn.classList.add('show');
+        } else {
+            scrollToTopBtn.classList.remove('show');
+        }
+    }
+    
+    // Smooth scroll to top
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+    
+    // Event listeners
+    window.addEventListener('scroll', toggleScrollButton);
+    scrollToTopBtn.addEventListener('click', scrollToTop);
+    
+    // Initial check
+    toggleScrollButton();
+});
