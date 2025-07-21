@@ -185,3 +185,57 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(valuesSection);
     }
 });
+
+// Features cards expansion functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const featureCards = document.querySelectorAll('.feature-card');
+    
+    // Track if any card is expanded
+    let isAnyCardExpanded = false;
+    let expandedCard = null;
+    
+    // Function to expand card
+    function expandCard(card) {
+        // Reset all cards
+        featureCards.forEach(featureCard => {
+            featureCard.classList.remove('feature-card--expanded');
+        });
+        
+        // Expand clicked card
+        card.classList.add('feature-card--expanded');
+        
+        // Update state
+        isAnyCardExpanded = true;
+        expandedCard = card;
+    }
+    
+    // Function to reset to normal state
+    function resetFeatures() {
+        if (expandedCard) {
+            expandedCard.classList.remove('feature-card--expanded');
+            expandedCard = null;
+        }
+        
+        isAnyCardExpanded = false;
+    }
+    
+    // Add click listeners to each feature card
+    featureCards.forEach(card => {
+        card.addEventListener('click', function() {
+            if (isAnyCardExpanded && expandedCard === card) {
+                // If clicking the same card again, reset to normal
+                resetFeatures();
+            } else {
+                // Expand clicked card
+                expandCard(card);
+            }
+        });
+    });
+    
+    // Add click listener to document to reset when clicking outside
+    document.addEventListener('click', function(e) {
+        if (isAnyCardExpanded && !e.target.closest('.feature-card')) {
+            resetFeatures();
+        }
+    });
+});
