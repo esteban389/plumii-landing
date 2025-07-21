@@ -32,17 +32,6 @@ body {
 }
 
 /* ===== HEADER Y NAVEGACIÓN ===== */
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--primary-transparent-10);
-    z-index: 1000;
-}
-
 .nav {
     max-width: 1200px;
     margin: 0 auto;
