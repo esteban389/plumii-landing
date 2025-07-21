@@ -438,6 +438,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const floatingNavToggle = document.getElementById('floatingNavToggle');
     const floatingNavMenu = document.querySelector('.floating-nav__menu');
     const floatingNavItems = document.querySelectorAll('.floating-nav__item');
+    const floatingLogo = document.getElementById('floatingLogo');
     
     if (floatingNav && floatingNavToggle && floatingNavMenu) {
         // Toggle del menú flotante
@@ -456,8 +457,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Event listeners para elementos del menú flotante
         floatingNavItems.forEach(item => {
             item.addEventListener('click', function() {
-                const sectionId = this.getAttribute('data-section');
-                smoothScrollToSection(sectionId);
+                // Si es el botón de contacto, abrir WhatsApp
+                if (this.classList.contains('floating-nav__item--contact')) {
+                    openWhatsApp();
+                } else {
+                    const sectionId = this.getAttribute('data-section');
+                    smoothScrollToSection(sectionId);
+                }
                 
                 // Cerrar menú después de hacer clic
                 setTimeout(() => {
@@ -477,43 +483,56 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Mostrar menú flotante después de scroll
-        let isFloatingNavVisible = false;
-        
-        function toggleFloatingNav() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const heroHeight = document.querySelector('.hero').offsetHeight;
+        // Control de visibilidad del menú flotante (solo para desktop)
+        function checkScreenSize() {
+            const isMobile = window.innerWidth <= 768;
             
-            if (scrollTop > heroHeight * 0.5 && !isFloatingNavVisible) {
+            if (isMobile) {
+                // En móvil, siempre visible
                 floatingNav.style.opacity = '1';
                 floatingNav.style.visibility = 'visible';
-                floatingNav.style.transform = 'translateY(-50%) scale(1)';
-                isFloatingNavVisible = true;
-            } else if (scrollTop <= heroHeight * 0.5 && isFloatingNavVisible) {
-                floatingNav.style.opacity = '0';
-                floatingNav.style.visibility = 'hidden';
-                floatingNav.style.transform = 'translateY(-50%) scale(0.8)';
-                isFloatingNavVisible = false;
+                floatingNav.style.transform = 'none';
+                if (floatingLogo) {
+                    floatingLogo.classList.add('show');
+                }
+            } else {
+                // En desktop, controlar por scroll
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const heroHeight = document.querySelector('.hero').offsetHeight;
                 
-                // Cerrar menú si está abierto
-                if (floatingNavMenu.classList.contains('show')) {
-                    floatingNavMenu.classList.remove('show');
-                    const svg = floatingNavToggle.querySelector('svg');
-                    svg.style.transform = 'rotate(0deg)';
+                if (scrollTop > heroHeight * 0.5) {
+                    floatingNav.style.opacity = '1';
+                    floatingNav.style.visibility = 'visible';
+                    floatingNav.style.transform = 'translateY(-50%) scale(1)';
+                    if (floatingLogo) {
+                        floatingLogo.classList.add('show');
+                    }
+                } else {
+                    floatingNav.style.opacity = '0';
+                    floatingNav.style.visibility = 'hidden';
+                    floatingNav.style.transform = 'translateY(-50%) scale(0.8)';
+                    if (floatingLogo) {
+                        floatingLogo.classList.remove('show');
+                    }
+                    
+                    // Cerrar menú si está abierto
+                    if (floatingNavMenu.classList.contains('show')) {
+                        floatingNavMenu.classList.remove('show');
+                        const svg = floatingNavToggle.querySelector('svg');
+                        svg.style.transform = 'rotate(0deg)';
+                    }
                 }
             }
         }
         
-        // Estado inicial del menú flotante
-        floatingNav.style.opacity = '0';
-        floatingNav.style.visibility = 'hidden';
-        floatingNav.style.transform = 'translateY(-50%) scale(0.8)';
+        // Estado inicial
         floatingNav.style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         
-        // Event listener para scroll
-        window.addEventListener('scroll', toggleFloatingNav);
+        // Event listeners
+        window.addEventListener('scroll', checkScreenSize);
+        window.addEventListener('resize', checkScreenSize);
         
         // Verificación inicial
-        toggleFloatingNav();
+        checkScreenSize();
     }
 });
