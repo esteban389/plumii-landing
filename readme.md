@@ -215,6 +215,15 @@ Comunicaciones claras y organizadas entre todos los actores educativos:
 
 # Community profiles
 
+**UNA PLATAFORMA PARA TODA LA COMUNIDAD EDUCATIVA**
+
+PLUMII ha sido diseñada pensando en todos los actores que construyen día a día el entorno escolar. Por eso, cada funcionalidad está pensada para ser útil, intuitiva y accesible tanto para:
+
+* **Docentes:** herramientas para seguimiento académico, comunicación directa con estudiantes y familias, y sistemas de alertas para prevenir el bajo rendimiento.
+* **Administrativos y directivos:** módulos que optimizan la gestión institucional, desde el monitoreo de rutas escolares hasta los reportes en tiempo real.
+* **Padres de familia:** acceso a información clara y constante sobre el rendimiento, asistencia y bienestar de sus hijos, desde cualquier lugar.
+* **Estudiantes:** una experiencia educativa más personalizada, segura y estimulante, con módulos interactivos y gamificados que incentivan su participación activa.
+
 # Security and benefits
 
 # Schools using plumii
