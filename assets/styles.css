@@ -3498,9 +3498,8 @@ body {
 /* ===== INSTITUTIONS CAROUSEL: CENTRADO REAL Y ANCHO FIJO ===== */
 .institution-carousel {
     width: 100%;
-    max-width: 700px;
     margin: 0 auto;
-    padding: 0;
+    padding: 2rem;
     position: relative;
     overflow: hidden;
     z-index: 2;

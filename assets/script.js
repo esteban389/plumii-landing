@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevBtn = document.getElementById('institutionCarouselPrev');
     const nextBtn = document.getElementById('institutionCarouselNext');
     const dots = Array.from(document.querySelectorAll('#institutionCarouselDots .institution-carousel__dot'));
-    let current = 0;
+    let current = 1; // Empieza en el primer slide real
 
     let autoplayTimer = null;
 
@@ -245,18 +245,49 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
     }
 
+    // Carousel infinito: clonar primer y último slide
+    const firstClone = slides[0].cloneNode(true);
+    const lastClone = slides[slides.length - 1].cloneNode(true);
+    track.appendChild(firstClone);
+    track.insertBefore(lastClone, slides[0]);
+    const allSlides = Array.from(track.children); // Incluye clones
+
     function getCardWidth() {
-        return slides[0].offsetWidth;
+        return allSlides[1].offsetWidth; // El primer real
     }
     function getGap() {
         const style = window.getComputedStyle(track);
         return parseFloat(style.gap) || 0;
     }
-    function goTo(index) {
-        if (index < 0) current = slides.length - 1;
-        else if (index >= slides.length) current = 0;
-        else current = index;
-        updateCarousel();
+    function goTo(index, instant = false) {
+        if (index < 1) {
+            current = 0;
+            updateCarousel();
+            setTimeout(() => {
+                // Salto instantáneo al último real
+                track.style.transition = 'none';
+                current = allSlides.length - 2;
+                updateCarousel();
+                // Forzar reflow para que el navegador aplique el cambio
+                void track.offsetWidth;
+                track.style.transition = '';
+            }, 400);
+            return;
+        } else if (index > allSlides.length - 2) {
+            current = allSlides.length - 1;
+            updateCarousel();
+            setTimeout(() => {
+                track.style.transition = 'none';
+                current = 1;
+                updateCarousel();
+                void track.offsetWidth;
+                track.style.transition = '';
+            }, 400);
+            return;
+        } else {
+            current = index;
+            updateCarousel();
+        }
     }
     function updateCarousel() {
         const cardWidth = getCardWidth();
@@ -267,35 +298,40 @@ document.addEventListener('DOMContentLoaded', () => {
         track.style.paddingRight = sidePad + 'px';
         const offset = (cardWidth + gap) * current;
         track.style.transform = `translateX(-${offset}px)`;
-        slides.forEach((slide, i) => {
+        allSlides.forEach((slide, i) => {
             slide.classList.remove('active', 'prev', 'next');
         });
-        slides[current].classList.add('active');
-        const prevIdx = (current - 1 + slides.length) % slides.length;
-        const nextIdx = (current + 1) % slides.length;
-        slides[prevIdx].classList.add('prev');
-        slides[nextIdx].classList.add('next');
+        // Solo marcar las reales
+        const realSlides = allSlides.slice(1, allSlides.length - 1);
+        const realIndex = current - 1;
+        realSlides.forEach((slide, i) => {
+            if (i === realIndex) slide.classList.add('active');
+            else if (i === realIndex - 1) slide.classList.add('prev');
+            else if (i === realIndex + 1) slide.classList.add('next');
+        });
         if (dots) {
             dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === current);
-                dot.setAttribute('aria-current', i === current ? 'true' : 'false');
+                dot.classList.toggle('active', i === realIndex);
+                dot.setAttribute('aria-current', i === realIndex ? 'true' : 'false');
             });
         }
         startAutoplay();
     }
-    // En cada interacción, reinicia el autoplay
-    slides.forEach((slide, i) => {
+    // Click en cards no activas
+    allSlides.forEach((slide, i) => {
         slide.onclick = null;
         slide.addEventListener('click', () => {
-            if (i !== current) goTo(i);
+            // Solo permitir clicks en reales
+            if (i > 0 && i < allSlides.length - 1 && (i !== current)) goTo(i);
             else startAutoplay();
         });
     });
+    // Dots de navegación
     dots.forEach((dot, i) => {
         dot.onclick = null;
         dot.addEventListener('click', (e) => {
             e.stopPropagation();
-            goTo(i);
+            goTo(i + 1);
             startAutoplay();
         });
     });
@@ -324,7 +360,14 @@ document.addEventListener('DOMContentLoaded', () => {
         startX = null;
         startAutoplay();
     });
-    setTimeout(updateCarousel, 50);
+    setTimeout(() => {
+        updateCarousel();
+        // Salto inicial para que el primer real esté centrado
+        track.style.transition = 'none';
+        updateCarousel();
+        void track.offsetWidth;
+        track.style.transition = '';
+    }, 50);
 });
 
 // Inicializar cuando el DOM esté listo
