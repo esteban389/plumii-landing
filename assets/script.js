@@ -290,8 +290,113 @@ document.addEventListener('DOMContentLoaded', function() {
             behavior: 'smooth',
             block: 'start'
         });
+        
+        // Mostrar botón de WhatsApp instantáneamente
+        const whatsappButton = document.getElementById('whatsappButton');
+        if (whatsappButton && !whatsappButton.classList.contains('show')) {
+            whatsappButton.classList.add('show');
+            // Mostrar tooltip después de un pequeño delay
+            setTimeout(() => {
+                const tooltip = document.getElementById('whatsappTooltip');
+                if (tooltip) {
+                    // Establecer mensaje aleatorio inicial
+                    tooltip.textContent = getRandomMessage();
+                    tooltip.classList.add('show');
+                    
+                    // Configurar cambio periódico de mensajes (cada 8 segundos)
+                    setInterval(changeTooltipMessage, 8000);
+                }
+            }, 300);
+        }
     }
     
     // Event listener
     heroCTA.addEventListener('click', scrollToAbout);
+});
+
+// ===== WHATSAPP BUTTON FUNCTIONALITY =====
+// Configuración del botón de WhatsApp
+const WHATSAPP_CONFIG = {
+    phoneNumber: '+573001234567', // Número de WhatsApp (formato internacional)
+    message: 'Hola! Me interesa conocer más sobre Plumii. ¿Podrían brindarme información sobre su plataforma educativa?' // Mensaje predeterminado
+};
+
+// Banco de mensajes para el tooltip
+const TOOLTIP_MESSAGES = [
+    '¿Tienes dudas? Nosotros tenemos respuestas',
+    '¿Necesitas más información? ¡Conversemos!',
+    '¿Quieres saber más sobre Plumii?',
+    '¿Tienes preguntas? Estamos aquí para ayudarte',
+    '¿Te interesa transformar tu institución educativa?',
+    '¿Quieres conocer cómo Plumii puede ayudarte?',
+    '¿Listo para el futuro de la educación?',
+    '¿Tienes dudas sobre nuestra plataforma?',
+    '¿Quieres una demo personalizada?',
+    '¿Te gustaría conocer nuestros precios?',
+    '¿Necesitas asesoría educativa?',
+    '¿Quieres revolucionar tu colegio?',
+    '¿Tienes dudas sobre la implementación?',
+    '¿Quieres conocer casos de éxito?',
+    '¿Te interesa la innovación educativa?'
+];
+
+// Función para obtener un mensaje aleatorio
+function getRandomMessage() {
+    const randomIndex = Math.floor(Math.random() * TOOLTIP_MESSAGES.length);
+    return TOOLTIP_MESSAGES[randomIndex];
+}
+
+// Función para cambiar el mensaje del tooltip
+function changeTooltipMessage() {
+    const tooltip = document.getElementById('whatsappTooltip');
+    if (tooltip && tooltip.classList.contains('show')) {
+        // Agregar clase para transición
+        tooltip.classList.add('changing');
+        
+        setTimeout(() => {
+            // Cambiar mensaje
+            tooltip.textContent = getRandomMessage();
+            
+            // Remover clase de transición
+            tooltip.classList.remove('changing');
+        }, 150);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const whatsappButton = document.getElementById('whatsappButton');
+    
+    if (!whatsappButton) return;
+    
+    // Mostrar botón después de 5 segundos
+    setTimeout(() => {
+        whatsappButton.classList.add('show');
+        // Mostrar tooltip después de un pequeño delay
+        setTimeout(() => {
+            const tooltip = document.getElementById('whatsappTooltip');
+            if (tooltip) {
+                // Establecer mensaje aleatorio inicial
+                tooltip.textContent = getRandomMessage();
+                tooltip.classList.add('show');
+                
+                // Configurar cambio periódico de mensajes (cada 8 segundos)
+                setInterval(changeTooltipMessage, 8000);
+            }
+        }, 300);
+    }, 5000);
+    
+    // Función para abrir WhatsApp
+    function openWhatsApp() {
+        // Codificar el mensaje para URL
+        const encodedMessage = encodeURIComponent(WHATSAPP_CONFIG.message);
+        
+        // Crear URL de WhatsApp
+        const whatsappURL = `https://wa.me/${WHATSAPP_CONFIG.phoneNumber}?text=${encodedMessage}`;
+        
+        // Abrir en nueva pestaña
+        window.open(whatsappURL, '_blank');
+    }
+    
+    // Event listener
+    whatsappButton.addEventListener('click', openWhatsApp);
 });
