@@ -41,16 +41,33 @@ body {
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--primary-transparent-10);
     z-index: 1000;
-    padding: 1rem 0;
 }
 
 .nav {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 1rem 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.nav:hover {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transform: translateX(-50%) translateY(-2px);
 }
 
 .nav__logo .logo {
@@ -272,7 +289,7 @@ body {
     background: linear-gradient(135deg, var(--white) 0%, var(--primary-transparent-5) 100%);
     display: flex;
     align-items: center;
-    padding-top: 80px;
+    padding-top: 120px;
     position: relative;
     overflow: hidden;
 }
@@ -387,7 +404,9 @@ body {
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
     .nav {
-        padding: 0 1rem;
+        padding: 0.8rem 1.5rem;
+        width: 95%;
+        top: 1.5rem;
     }
     
     .nav__menu {
@@ -430,6 +449,17 @@ body {
 }
 
 @media (max-width: 480px) {
+    .nav {
+        padding: 0.6rem 1rem;
+        width: 98%;
+        top: 1rem;
+        border-radius: 20px;
+    }
+    
+    .hero {
+        padding-top: 100px;
+    }
+    
     .hero__title {
         font-size: 2rem;
     }
