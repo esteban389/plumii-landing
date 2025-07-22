@@ -226,6 +226,24 @@ PLUMII ha sido diseñada pensando en todos los actores que construyen día a dí
 
 # Security and benefits
 
+**SEGURIDAD, PERSONALIZACIÓN Y CONFIANZA**
+
+* Servidores instalados en Estados Unidos, que cumplen con altos estándares internacionales de protección de datos.
+* Respaldo constante de la información, para asegurar la continuidad del servicio sin pérdidas.
+* Blindaje cibernético y encriptación de datos sensibles, protegiendo a estudiantes y usuarios frente a amenazas digitales.
+
+---
+
+**Además,**
+sabemos que cada institución es única. Por eso ofrecemos:
+
+* **Personalización visual** de la plataforma según la imagen corporativa del colegio (colores, logos, tipografías).
+* **Adaptación funcional:** activamos y desarrollamos módulos específicos según las necesidades y presupuesto de cada institución educativa.
+
+De esta forma, las instituciones pueden crecer en funcionalidades a medida que lo necesiten, sin pagar por servicios que no usan.
+
+En PLUMII, nos adaptamos a ti. Tu colegio, tu identidad, tu comunidad, tu plataforma.
+
 # Schools using plumii
 Título + badge 
 Listado de colegios con imágemes y nombre del colegio
