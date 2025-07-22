@@ -36,25 +36,24 @@ class AnimationManager {
     animateSphere(sphere, index) {
         const serviceCard = sphere.closest('.service-card');
         if (!serviceCard) return;
+        const serviceGrid = sphere.closest('.services__container');
+        if (!serviceGrid) return;
 
-        serviceCard.addEventListener('mousemove', (e) => {
+        function mouseMove(e) {
             const rect = serviceCard.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
-            // Aplicar transformación con delay basado en el índice
-            const delay = index * 0.1;
-            setTimeout(() => {
-                sphere.style.transform = `translate(${x}px, ${y}px)`;
-            }, delay * 1000);
-        });
+            sphere.style.left = x + 'px';
+            sphere.style.top = y + 'px';
+            sphere.style.opacity = '1';
+        }
+        function mouseLeave() {
+            sphere.style.opacity = '0';
+        }
 
-        serviceCard.addEventListener('mouseleave', () => {
-            // Resetear posición
-            setTimeout(() => {
-                sphere.style.transform = 'translate(50%, 50%)';
-            }, 200);
-        });
+        serviceGrid.addEventListener('mousemove', e => requestAnimationFrame(() => mouseMove(e)));
+        serviceGrid.addEventListener('mouseleave', mouseLeave);
     }
 
     /**
